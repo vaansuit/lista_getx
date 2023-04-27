@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648830011340",
+    "project_id": "desafio-listinha-977a9",
+    "storage_bucket": "desafio-listinha-977a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648830011340:android:c14528b6ecc4e4e068ff69",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648830011340-h5qumbks3ptdhmddpia83ouvq67d0rfa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaNvJPrYsbup4OKi31M9lxvHhBV4DoLoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648830011340-h5qumbks3ptdhmddpia83ouvq67d0rfa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
