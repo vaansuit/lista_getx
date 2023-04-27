@@ -47,7 +47,7 @@ class HomePage extends GetView<Controller> {
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        controller.removeProductFromList(index);
+                        controller.deleteProduct(controller.products[index].id);
                       },
                     ),
                   );

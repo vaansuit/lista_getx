@@ -1,10 +1,12 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'product_model.dart';
 
 class Controller extends GetxController {
-  //Começar criando uma lista de produtos vazia
   final products = <ProductModel>[].obs;
 
   TextEditingController productNameController = TextEditingController();
@@ -20,9 +22,8 @@ class Controller extends GetxController {
     final value = double.tryParse(productPriceController.text.trim());
 
     if (name.isNotEmpty && value != null) {
-      products.add(ProductModel(name: name, value: value));
-      productNameController.clear();
-      productPriceController.clear();
+      products.add(ProductModel(name: name, value: value, id: ''));
+
       products.sort((a, b) => b.value.compareTo(a.value));
       update();
     }
@@ -70,6 +71,48 @@ class Controller extends GetxController {
           ),
         ),
       );
+    }
+  }
+
+  Future addProductToFirestore() async {
+    final name = productNameController.text.trim();
+    final value = double.tryParse(productPriceController.text.trim());
+
+    if (name.isNotEmpty && value != null) {
+      final product = {'name': name, 'value': value};
+      final docRef =
+          await FirebaseFirestore.instance.collection('product').add(product);
+      final id = docRef.id;
+      final newProduct = ProductModel(id: id, name: name, value: value);
+      products.add(newProduct);
+      productNameController.clear();
+      productPriceController.clear();
+      products.sort((a, b) => b.value.compareTo(a.value));
+      update();
+    }
+  }
+
+  Future<void> deleteProduct(String id) async {
+    try {
+      final index = products.indexWhere((product) => product.id == id);
+
+      if (index == -1) {
+        throw Exception('Product not found');
+      }
+      await FirebaseFirestore.instance.collection('product').doc(id).delete();
+      products.removeAt(index);
+
+      update();
+
+      Get.snackbar('Product deleted', 'The product was successfully deleted',
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred while deleting the product: $e',
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
     }
   }
 
