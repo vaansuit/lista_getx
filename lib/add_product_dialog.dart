@@ -33,8 +33,9 @@ Future<void> showAddProductDialog(BuildContext context) {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    controller.addProductToList();
+                  onPressed: () async {
+                    // controller.addProductToList();
+                    await controller.addProductToFirestore();
                   },
                   child: const Text('Adicionar'),
                 ),

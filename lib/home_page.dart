@@ -44,11 +44,26 @@ class HomePage extends GetView<Controller> {
                     title: Text(controller.products[index].name),
                     subtitle: Text(
                         'R\$${controller.products[index].value.toStringAsFixed(2)}'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        controller.removeProductFromList(index);
-                      },
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              controller.deleteProductFromFirestore(
+                                  controller.products[index].id);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              controller.editProductFromFirestore(
+                                  controller.products[index].id);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
